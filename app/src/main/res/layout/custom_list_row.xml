@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#c6c7f0e2"
+    android:padding="8dp">
+    <ImageView
+        android:id="@+id/CharityImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="5dp"
+        android:src="@drawable/logo"
+        android:layout_alignParentLeft="true" />
+
+
+    <TextView
+        android:id="@+id/CharityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="25dip"
+        android:textStyle="bold"
+        android:text="hello"
+        android:layout_centerVertical="true"
+        android:paddingLeft="60dp" />
+</RelativeLayout >
