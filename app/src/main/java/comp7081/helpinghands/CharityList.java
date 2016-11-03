@@ -22,6 +22,17 @@ public class CharityList extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.logo);
 
+        CharitiesDbHelper myDbHelper = new CharitiesDbHelper(this);
+        myDbHelper.addEntry("Helping Hands", "logo", "This is a test", 1000);
+        myDbHelper.addEntry("Testing Hands", "logo", "This is a test too", 2000);
+
+        ListView lv = (ListView)findViewById(android.R.id.list);
+        CharitiesAdapter customAdapter = new CharitiesAdapter(this, myDbHelper.getAllRows(), 0);
+        //Toast.makeText(this, "Custom adapter created.", Toast.LENGTH_LONG).show();
+        lv.setAdapter(customAdapter);
+        //Toast.makeText(this, "Custom Adapter set.", Toast.LENGTH_LONG).show();
+
+            /*
         String dbName = "charitiesDB.db";
         SQLiteDatabase db = openOrCreateDatabase(dbName, 0, null);
 
@@ -36,10 +47,11 @@ public class CharityList extends AppCompatActivity {
             //create a table
             db.execSQL("CREATE TABLE IF NOT EXISTS "
                     + "Charities"
-                    + " (id INT PRIMARY KEY, name VARCHAR , image BLOB, biography VARCHAR, donated INT);");
+                    + " (id INT PRIMARY KEY, name VARCHAR , image VARCHAR, biography VARCHAR, donated INT);");
 
             //Add a test entry
-            addEntry(db, 1, "Helping Hands", R.drawable.logo, "This is a test", 1000);
+            addEntry(db, 1, "Helping Hands", "logo", "This is a test", 1000);
+            addEntry(db, 2, "Testing Hands", "logo", "This is a test too", 2000);
 
             db.setTransactionSuccessful();
         }
@@ -52,7 +64,10 @@ public class CharityList extends AppCompatActivity {
             db.endTransaction();
         }
 
+
+
         Cursor dbCursor = null;
+
 
         if(!db.isOpen()) {
             Toast.makeText(this, "Db Open Error", Toast.LENGTH_SHORT)
@@ -61,6 +76,7 @@ public class CharityList extends AppCompatActivity {
         }
         try{
             dbCursor = db.query( "Charities", null, null, null, null, null, null); //so many nulls, I am good at databases :D
+
 
             int nameCol = dbCursor.getColumnIndex("name");
             int numberCol = dbCursor.getColumnIndex("donated");
@@ -79,10 +95,19 @@ public class CharityList extends AppCompatActivity {
                     } while (dbCursor.moveToNext());
                 }
             }
+            ListView lv = (ListView)findViewById(android.R.id.list);
+            CharitiesAdapter customAdapter = new CharitiesAdapter(this, dbCursor, 0);
+            Toast.makeText(this, "Custom adapter created.", Toast.LENGTH_LONG).show();
+            lv.setAdapter(customAdapter);
+            Toast.makeText(this, "Custom Adapter set.", Toast.LENGTH_LONG).show();
+
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+    */
+
+
         /*
         dbCursor = db.query( "Charities", null, null, null, null, null, null);
 
@@ -99,14 +124,4 @@ public class CharityList extends AppCompatActivity {
         */
     }
 
-    public void addEntry( SQLiteDatabase db, int id, String name, int image, String bio, int donated) throws SQLiteException {
-        SQLiteDatabase database = db;
-        ContentValues cv = new ContentValues();
-        cv.put("id",    id);
-        cv.put("name",    name);
-        cv.put("image",   image);
-        cv.put("biography",   bio);
-        cv.put("donated",   donated);
-        database.insertWithOnConflict( "Charities", null, cv , SQLiteDatabase.CONFLICT_REPLACE);
-    }
 }
