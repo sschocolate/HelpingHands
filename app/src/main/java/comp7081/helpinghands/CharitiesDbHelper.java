@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
+
 public class CharitiesDbHelper extends SQLiteOpenHelper {
     public SQLiteDatabase db;
 
@@ -14,6 +15,7 @@ public class CharitiesDbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "charitiesDB";
     public static final String TABLE_NAME = "charities";
     public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_PATH = "//data/data/comp7081.helpinghands/databases/charitiesDB";
 
     // Database columns
     public static final String COL_UID = "_id";
@@ -23,7 +25,7 @@ public class CharitiesDbHelper extends SQLiteOpenHelper {
     public static final String COL_DONATED = "Donated";
 
     // SQL commands
-    private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS" + TABLE_NAME + " (" + COL_UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME + " VARCHAR(255), " + COL_IMAGE + " VARCHAR(255), " + COL_BIOGRAPHY + " VARCHAR(255), " + COL_DONATED  + " INTEGER);";
+    private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" + COL_UID + " INTEGER, " + COL_NAME + " VARCHAR(255) PRIMARY KEY UNIQUE, " + COL_IMAGE + " VARCHAR(255), " + COL_BIOGRAPHY + " VARCHAR(255), " + COL_DONATED  + " INTEGER);";
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     public CharitiesDbHelper(Context context) {
@@ -74,7 +76,7 @@ public class CharitiesDbHelper extends SQLiteOpenHelper {
      * @return Records stored in a cursor
      */
     public Cursor getAllRows() {
-        db = getWritableDatabase();
+        db = getReadableDatabase();
         String columns[] = {COL_UID, COL_NAME, COL_IMAGE, COL_BIOGRAPHY, COL_DONATED};
         Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
         if(cursor != null) {

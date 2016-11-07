@@ -24,7 +24,8 @@ public class CharityList extends AppCompatActivity {
 
         CharitiesDbHelper myDbHelper = new CharitiesDbHelper(this);
         myDbHelper.addEntry("Helping Hands", "logo", "This is a test", 1000);
-        myDbHelper.addEntry("Testing Hands", "logo", "This is a test too", 2000);
+        myDbHelper.addEntry("Testing Hands", "redcrosslogo", "This is a test too", 2000);
+        myDbHelper.addEntry("Helping Tests", "pinkribbonlogo", "This is a test also", 3000);
 
         ListView lv = (ListView)findViewById(android.R.id.list);
         CharitiesAdapter customAdapter = new CharitiesAdapter(this, myDbHelper.getAllRows(), 0);
@@ -108,20 +109,6 @@ public class CharityList extends AppCompatActivity {
     */
 
 
-        /*
-        dbCursor = db.query( "Charities", null, null, null, null, null, null);
-
-        ListAdapter adapter = new SimpleCursorAdapter(
-                this, // Context.
-                R.layout.custom_list_row,  // Specify the row template to use (here, two columns bound to the two retrieved cursor rows).
-                dbCursor,                                              // Pass in the cursor to bind to.
-                new String[] {"name", "image"},           // Array of cursor columns to bind to.
-                new int[] {R.id.CharityName, R.id.CharityImage},
-                0);  // Parallel array of which template objects to bind to those columns.
-
-        ListView lv = (ListView)findViewById(android.R.id.list);
-        lv.setAdapter(adapter);
-        */
     }
 
 }
